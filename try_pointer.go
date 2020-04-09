@@ -6,10 +6,10 @@ package main
 
 func main() {
 	n, m := 10, 20
-	swap2(&n, &m)
+	swap2(&n, &m) //n,mのアドレスを引数に指定
 	println(n, m)
 }
 
-func swap2(np, mp *int) {
-	*np, *mp = *mp, *np
+func swap2(np, mp *int) { //アドレスをintのポイント型にいれる
+	*np, *mp = *mp, *np //アドレスが指している変数を、入れ替える
 }

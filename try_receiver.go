@@ -8,12 +8,12 @@ package main
 type MyInt int
 
 func (n *MyInt) Inc() {
-	*n++ //Incは自身を1ずつ加算
+	*n++ // Incは自身を1ずつ加算
 }
 
 func main() {
 	var n MyInt
 	println(n)
-	(&n).Inc() //nはレシーバ//Incはメソッド
+	(&n).Inc() // nはレシーバ//Incはメソッド
 	println(n)
 }

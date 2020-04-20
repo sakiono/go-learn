@@ -11,25 +11,55 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+	"bufio"
 )
+var boo = flag.Bool("n", false, "オプション設定の有無")
+var num = 1
 
 func main() {
-	boo := flag.Bool("n", false, "オプション設定の有無")
 	flag.Parse()
 
-	memo := flag.Args() //フラグの分を除外してプログラム引数を取得 //os.Argsはフラグ,実行ファイル名含め全ての要素取得
-	//flag.Parse()
+	fileNames := flag.Args() //フラグの分を除外してプログラム引数を取得 //os.Argsはフラグ,実行ファイル名含め全ての要素取得
 
-	for num, text := range memo {
-		if *boo == true {
-			fmt.Printf("%d: %s\n", num+1, text)
-		} else {
-			fmt.Printf("%s\n", text)
+	for _, fn := range fileNames {
+		err := readLine(fn) //エラーの場合の受け取るための変数
+
+		if err != nil { //エラーの場合の処理
+			fmt.Println(err)
+			return
 		}
 	}
-
 }
 
+func readLine (fn string) error {
+	f, err := os.Open(fn) //ファイル開ける
+
+	if err != nil { //エラーならerrを返す//終了
+		return err
+	}
+	defer f.Close()
+
+	scanner := bufio.NewScanner(f)
+
+	for scanner.Scan() {
+		if *boo == true {
+			fmt.Printf("%d: ",num)
+			num++
+		}
+		fmt.Println(scanner.Text())
+	}
+	return nil
+}
+
+
+//「catコマンド」を作る
+
 //scan系との違い
-//22行目と19行目のflag.Parseの違い
-//catで打てるためにはどうしたらいいのか
+//画像
+//-nの設定がないと動かないのは何で
+//52はreturn nilでいいのか
+//30のreturnはいる？
+
+//22行目と19行目のflag.Parseの違い ok
+//catで打てるためにはどうしたらいいのか ok

@@ -55,7 +55,7 @@ func readLine (fn string) error {
 
 //「catコマンド」を作る
 
-//scan系との違い
+//bufio.newscannerとscanner.scanが何してるのかいまいちわからない
 //画像
 //-nの設定がないと動かないのは何で
 //52はreturn nilでいいのか

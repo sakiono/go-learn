@@ -14,8 +14,8 @@ import (
 	"os"
 	"bufio"
 )
-var boo = flag.Bool("n", false, "オプション設定の有無")
-var num = 1
+var headerNum = flag.Bool("n", false, "行数番号の有無") //中身が分かりやすい変数名 //オプションの説明
+var num = 0
 
 func main() {
 	flag.Parse()
@@ -33,6 +33,7 @@ func main() {
 }
 
 func readLine (fn string) error {
+	//fmt.Println(fn)
 	f, err := os.Open(fn) //ファイル開ける
 
 	if err != nil { //エラーならerrを返す//終了
@@ -43,9 +44,9 @@ func readLine (fn string) error {
 	scanner := bufio.NewScanner(f)
 
 	for scanner.Scan() {
-		if *boo == true {
-			fmt.Printf("%d: ",num)
+		if *headerNum{
 			num++
+			fmt.Printf("%d: ",num)
 		}
 		fmt.Println(scanner.Text())
 	}
@@ -57,9 +58,17 @@ func readLine (fn string) error {
 
 //bufio.newscannerとscanner.scanが何してるのかいまいちわからない
 //画像
-//-nの設定がないと動かないのは何で
 //52はreturn nilでいいのか
 //30のreturnはいる？
 
 //22行目と19行目のflag.Parseの違い ok
 //catで打てるためにはどうしたらいいのか ok
+//-nの設定がないと動かないのは何で ok go run 複数のgoファイルで認識されるから
+
+//フィードバック
+//17行目//中身が分かりやすい変数名 //オプションの説明
+//46行目bool型は==要らない
+//18行目0スタートでもok //var num = 0
+//今回はいいが、基本変数は関数の中。スコープ！
+//ユーザ視点では、「ファイル名」「ファイルの中身」を表示するのもgood
+//できなかったらデバッグログを取ろう

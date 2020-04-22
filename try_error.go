@@ -22,7 +22,7 @@ type Stringer interface{
 }
 
 func ToStringer(v interface{}) (Stringer, error){ //S型が送られて来ているが受取可能
-	if s, ok := v.(Stringer); ok{ //v.(Stringer)が分からない //okがtrueの時の処理
+	if s, ok := v.(Stringer); ok{ //インタフェース型の値を任意の型にキャストする。第二引数はキャストできるかどうかの返り値 //okがtrueの時の処理
 		return s,nil
 	}
 	return nil, MyError("CastError")
@@ -42,11 +42,23 @@ func (s S) String() string{
 
 func main(){
 	v := S("Hoge") //string型"Hoge"をS型にキャスト
-	if s, err :=ToStringer(v); err != nil{ //ToStringer(v)の結果をe,errに代入
+	if s, err :=ToStringer(v); err != nil{ //ToStringer(v)の返り値をs,errに代入
 		fmt.Fprintln(os.Stderr, "ERROR:",err)
 	}else{
 		fmt.Println(s.String())
 	}
 }
 
-//25行目v.(Stringer)
+//25行目v.(Stringer)は型アサーションをしている
+//型アサーションは、そのinterfaceを実装しているかどうかのチェック
+//第一引数アサーション後の型,第二引数成功したかどうかのbool型
+
+/*
+33行目
+type error interface {
+    Error() string
+}
+*/
+
+//メソッドは、主語述語
+//関数は、いろいろ書いてある文章

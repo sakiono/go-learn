@@ -8,6 +8,7 @@ import (
 
 //サブテストとテーブル駆動テスト
 func TestIsEven(t *testing.T){ //偶数の時trueである
+
 	datas := []struct{
 		subTestName string; input int; expected bool
 	}{
@@ -15,9 +16,10 @@ func TestIsEven(t *testing.T){ //偶数の時trueである
 		{subTestName: "+even",input: 4, expected: true},
 		{subTestName: "-odd",input: -3, expected: false},
 		{subTestName: "-even",input: -4, expected: true},
-		{subTestName: "+zero",input: 0, expected: true},
+		{subTestName: "zero",input: 0, expected: true},
 	}
 
+	//テストは、inputに対してoutputが正しくかえってくるか確かめる
 	for _, d := range datas{
 
 		//t.Runの使い方
@@ -30,6 +32,11 @@ func TestIsEven(t *testing.T){ //偶数の時trueである
 			}
 		})
 	}
+
+	//t.Run("A",func (t *testing.T){fmt.Println("A")}) //サブテスト例
+	//t.Run("b",func (t *testing.T){fmt.Println("B")})
+	//t.Run("c",func (t *testing.T){fmt.Println("c")})
+
 }
 
 
@@ -60,8 +67,27 @@ func TestIsEven(t *testing.T) { //偶数の時trueである
 */
 
 
+
 //疑問
-//357ページの「c :=c」がわからない
-//テストはインプット、アウトプットが予想できる時しか使えない?
-//ターミナルでの実行 $go test　<ここはなに？>
-//ターミナルでの実行 $go test　<ここはなに？>　の後、coverprofile
+//+ができない
+
+
+//memo
+//357ページの「c :=c」がわからない →　いらない
+//テストはインプット、アウトプットが予想できる時しか使えない?　→　そう
+//ターミナルでの実行 $go test　<ここはなに？>　→ $go test ディレクトリ
+
+
+//$go test -coverprofile
+//プロファイルの作成
+
+//$go test -coverprofile=cover.out example
+//作成されたプロファイルcover.go.
+//exampleはファイルパス
+
+//$ go tool cover -html=cover.out
+//$ go tool cover -func=cover.out
+//作成されたプロファイル「cover.out」に対して、「go tool cover」
+
+//$ go test -coverprofile=cover.out -covermode=count example
+//-covermodeは解析のモード //count,set,automatic
